@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+</head>
+<body>
+  <style>
+      H1 {
+            color: #000080;
+            font-size: 200%;
+            font-family: Arial, Verdana, sans-serif;
+            text-align: center;
+        }
+        H2 {
+            color: #000080;
+            font-size: 200%;
+            font-family: Arial, Verdana, sans-serif;
+            text-align: center;
+        }
+      P {
+            padding-left: 20px;
+            text-align: center;
+        }
+    </style>
+    <pagename>
+        {% block pagename %}
+        <h1>Главная страница</h1>
+        {% endblock %}
+    </pagename>
+
+    <menu>
+        {% block menu %}
+        <h2><a href="http://127.0.0.1:8000/index">Расчет стоимости поездки</a></h2>
+        <h2><a href="https://www.drive2.ru/o/b/674196891725988538/">Что проверить перед поездкой?</a></h2>
+        <h2><a href="https://fuelprices.ru/">Актуальные цены на бензин в России</a></h2>
+        {% endblock %}
+    </menu>
+
+    <content>
+        {% block content%}
+            <h1>Рассчет</h1>
+            <form method="POST">
+            {% csrf_token %}
+            <p>
+                <label for="distance">Введите расстояние поездки(км)</label>
+                <input type="text" id="distance" name="distance" style="font-size:25px;">
+            </p>
+
+            <p>
+                <label for="fuel_consumption">Введите расход топлива(л)</label>
+                <input type="text" id="fuel_consumption" name="fuel_consumption" style="font-size:25px;">
+            </p>
+
+            <p>
+                <label for="fuel_price">Введите стоимость топлива(руб)</label>
+                <input type="text" id="fuel_price" name="fuel_price" style="font-size:25px;">
+            </p>
+
+
+            <p>
+                <button type="submit">Рассчитать </button>
+                <button> <a href="{% url 'button' %}">На главную</a></button>
+            </p>
+
+            <h1>{{ print_ }}</h1><br>
+
+
+        {% endblock %}
+    </content>
+
+    <content>
+        <p>
+        <img
+            src="https://a.d-cd.net/ffb929cs-960.jpg"
+            alt="Реклама"
+            width="400"
+            height="341" />
+        </p>
+    </content>
+</body>
+</html>

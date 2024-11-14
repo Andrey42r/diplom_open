@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+</head>
+<body>
+    <style>
+      H1 {
+            color: #000080;
+            font-size: 200%;
+            font-family: Arial, Verdana, sans-serif;
+            text-align: center;
+        }
+        H2 {
+            color: #000080;
+            font-size: 200%;
+            font-family: Arial, Verdana, sans-serif;
+            text-align: center;
+        }
+      P {
+            padding-left: 20px;
+            text-align: center;
+        }
+    </style>
+    <pagename>
+        {% block pagename %}
+        <h1>Главная страница</h1>
+        {% endblock %}
+    </pagename>
+
+    <menu>
+        {% block menu %}
+        <h2><a href="http://127.0.0.1:5000/index/">Расчет стоимости поездки</a></h2>
+        <h2><a href="https://www.drive2.ru/o/b/674196891725988538/">Что проверить перед поездкой?</a></h2>
+        <h2><a href="https://fuelprices.ru/">Актуальные цены на бензин в России</a></h2>
+        {% endblock %}
+    </menu>
+
+    <content>
+        {% block content%}
+            <p></p>
+        {% endblock %}
+    </content>
+
+    <content>
+         <p>
+        <img
+            src="https://a.d-cd.net/ffb929cs-960.jpg"
+            alt="Реклама"
+            width="400"
+            height="341" />
+        </p>
+    </content>
+</body>
+</html>
