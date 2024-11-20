@@ -1,5 +1,6 @@
 from app import db
 
+
 class Trip(db.Model):
     """
     Модель SQLAlchemy для представления поездки.
@@ -17,8 +18,10 @@ class Trip(db.Model):
     distance = db.Column(db.Float)
     fuel_consumption = db.Column(db.Float)
     fuel_price = db.Column(db.Float)
+    point_a = db.Column(db.String)
+    point_b = db.Column(db.String)
 
-    def __init__(self, distance, fuel_consumption, fuel_price):
+    def __init__(self, distance, fuel_consumption, fuel_price, point_a, point_b):
         """
         Инициализирует объект Trip.
 
@@ -30,6 +33,8 @@ class Trip(db.Model):
         self.distance = distance
         self.fuel_consumption = fuel_consumption
         self.fuel_price = fuel_price
+        self.point_a = point_a
+        self.point_b = point_b
 
     def __repr__(self):
         """

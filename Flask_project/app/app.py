@@ -48,15 +48,42 @@ def menu():
     conn.close() # Закрытие соединения после использования!
     return render_template('menu.html')
 
+
+# def init_db():
+#     """Инициализирует базу данных, создавая таблицу 'trip'."""
+#     conn = connect_db()
+#     cursor = conn.cursor()  # Get a cursor object
+#
+#     cursor.execute('''
+#         SELECT name FROM pragma_table_info('trip')
+#         WHERE name IN ('point_a', 'point_b');
+#     ''')
+#     existing_columns = cursor.fetchall()
+#
+#     if not existing_columns: #Check if columns are present.
+#         cursor.execute('''
+#             ALTER TABLE trip
+#             ADD COLUMN point_a STRING;
+#         ''')
+#         cursor.execute('''
+#             ALTER TABLE trip
+#             ADD COLUMN point_b STRING;
+#         ''')
+#         conn.commit()  #Commit changes
+#
+#     conn.close()
+
+
 def init_db():
     """
     Инициализирует базу данных, создавая таблицу 'trip', если она не существует.
     """
     conn = connect_db()
     conn.execute('CREATE TABLE IF NOT EXISTS trip (distance FLOAT NOT NULL, fuel_consumption FLOAT NOT NULL, '
-                 'fuel_price FLOAT NOT NULL)')
+                 'fuel_price FLOAT NOT NULL, point_a STRING, point_b STRING)')
     conn.commit()  # Добавлен commit для сохранения изменений в БД
     conn.close()
+
 
 @app.before_request
 def before_first_request():
@@ -64,6 +91,7 @@ def before_first_request():
     Выполняет инициализацию базы данных перед первым запросом к приложению.
     """
     init_db()
+
 
 @app.route('/index/', methods=['GET', 'POST'])
 def index():
@@ -79,14 +107,18 @@ def index():
         distance = request.form["distance"]
         fuel_consumption = request.form["fuel_consumption"]
         fuel_price = request.form["fuel_price"]
+        point_a = request.form["point_a"]
+        point_b = request.form["point_b"]
         conn = connect_db()
-        conn.execute('INSERT INTO trip (distance, fuel_consumption, fuel_price) VALUES (?, ?, ?)',
-                     (distance, fuel_consumption, fuel_price))
+        conn.execute('INSERT INTO trip (point_a, point_b, distance, fuel_consumption, fuel_price) '
+                     'VALUES (?, ?, ?, ?, ?)', (point_a, point_b, distance, fuel_consumption, fuel_price))
         conn.commit()
         conn.close()
         result = (float(distance)/100) * float(fuel_consumption) * float(fuel_price)
-        print_ = f'Стоимость поездки составит {int(result)} рублей! Удачи на дорогах!'
-        return render_template('index.html', print_=print_)
+        print_1 = (f'Вы поедете из {point_a} в {point_b}.')
+        print_2 = (f'Стоимость поездки составит {int(result)} рублей!')
+        print_3 = (f'Удачи на дорогах!')
+        return render_template('index.html', print_1=print_1, print_2=print_2, print_3=print_3)
 
     return render_template('index.html')
 
