@@ -1,4 +1,3 @@
-
 from app import db
 
 class Trip(db.Model):

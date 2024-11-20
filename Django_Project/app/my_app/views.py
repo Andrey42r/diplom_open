@@ -7,41 +7,27 @@ from .models import Trip
 # Create your views here.
 def menu(request):
     """
-        Представление для отображения меню.
+    Представление для отображения меню.
 
-        Args:
-            request (HttpRequest): Объект запроса.
-
-        Returns:
-            HttpResponse: Отрендеренный шаблон меню ('menu.html').
-        """
+    """
     return render(request, 'menu.html')
 
 def button(request):
     """
-       Представление, которое перенаправляет на страницу меню.
+    Представление, которое перенаправляет на страницу меню.
 
-       Args:
-           request (HttpRequest): Объект запроса.
-
-       Returns:
-           HttpResponse: Отрендеренный шаблон меню ('menu.html').
-       """
+    """
     return render(request, 'menu.html')
 
 def index(request):
     """
-        Представление для обработки данных о поездке и вычисления стоимости.
+    Представление для обработки данных о поездке и вычисления стоимости.
 
-        Обрабатывает POST-запросы, сохраняет данные в базе данных и отображает результат.
-        Если запрос GET, отображает форму для ввода данных.
+    Обрабатывает POST-запросы, сохраняет данные в базе данных и отображает результат.
 
-        Args:
-            request (HttpRequest): Объект запроса.
+    Если запрос GET, отображает форму для ввода данных.
 
-        Returns:
-            HttpResponse: Отрендеренный шаблон 'index.html' с результатом расчета или формой.
-        """
+    """
     if request.method == "POST":
         form = Trip.objects.all()
         distance = request.POST.get('distance')
